@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: cyberincident-platform
+    runtime: node
+    buildCommand: npm install && npm --prefix client install && npm --prefix client run build && npm --prefix server install
+    startCommand: npm --prefix server start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MAX_UPLOAD_MB
+        value: 50
+      - key: RATE_LIMIT_MAX
+        value: 300
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: SNMP_DEMO_MODE
+        value: false
+      - key: SNMP_POLL_INTERVAL_MS
+        value: 60000
+      - key: SNMP_DEVICES
+        value: '[]'
